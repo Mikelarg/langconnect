@@ -1,4 +1,5 @@
 import logging
+import traceback
 from typing import Annotated, Any
 from uuid import UUID
 
@@ -71,6 +72,7 @@ async def documents_create(
         except Exception as proc_exc:
             # Log the error and the file that caused it
             logger.info(f"Error processing file {file.filename}: {proc_exc}")
+            traceback.print_exc()
             failed_files.append(file.filename)
             # Decide on behavior: continue processing others or fail fast?
             # For now, let's collect failures and report them, but continue processing.
