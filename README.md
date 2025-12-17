@@ -1,69 +1,43 @@
 # LangConnect
+LangConnect — это сервис RAG (Retrieval-Augmented Generation), созданный с использованием FastAPI и LangChain. Он предоставляет REST API для управления коллекциями и документами, а также PostgreSQL и pgvector для хранения векторных данных.
 
-LangConnect is a RAG (Retrieval-Augmented Generation) service built with FastAPI and LangChain. It provides a REST API for managing collections and documents, with PostgreSQL and pgvector for vector storage.
+## Установка
 
-## Features
+### Требования
 
-- FastAPI-based REST API
-- PostgreSQL with pgvector for document storage and vector embeddings
-- Docker support for easy deployment
+- Docker и Docker Compose
+- Python 3.11 или выше
 
-## Getting Started
+### Запуск с Docker
 
-### Prerequisites
-
-- Docker and Docker Compose
-- Python 3.11 or higher
-
-### Running with Docker
-
-1. Clone the repository:
+1. Скачайте репозиторий:
    ```bash
-   git clone https://github.com/langchain-ai/langconnect.git
-   cd langconnect
+   git clone git@github.com:Mikelarg/giga_agent_langconnect.git
+   cd giga_agent_langconnect
    ```
 
-2. Start the services:
+2. Заполните ENV переменные в файле `.env`. Пример .env файла: [.env.example](.env.example)
+
+3. Запустите сервис:
    ```bash
    docker-compose up -d
    ```
 
-   This will:
-   - Start a PostgreSQL database with pgvector extension
-   - Build and start the LangConnect API service
+   Это:
+   - Запустит PostgreSQL бд с pgvector расширением
+   - Забилдит и запустит LangConnect API
 
-3. Access the API:
-   - API documentation: http://localhost:8080/docs
-   - Health check: http://localhost:8080/health
+4. Подключение к API:
+   - API документация: http://localhost:8833/docs
+   - Health check: http://localhost:8833/health
 
-### Development
-
-To run the services in development mode with live reload:
-
-```bash
-docker-compose up
-```
-
-## API Documentation
-
-The API documentation is available at http://localhost:8080/docs when the service is running.
-
-## Environment Variables
-
-The following environment variables can be configured in the `docker-compose.yml` file:
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| POSTGRES_HOST | PostgreSQL host | postgres |
-| POSTGRES_PORT | PostgreSQL port | 5432 |
-| POSTGRES_USER | PostgreSQL username | postgres |
-| POSTGRES_PASSWORD | PostgreSQL password | postgres |
-| POSTGRES_DB | PostgreSQL database name | postgres |
-
-## License
-
-This project is licensed under the terms of the license included in the repository.
-
+5. Подключите LangConnect к GigaAgent
+   - С помощью ENV переменных `LANGCONNECT_API_URL` и `LANGCONNECT_API_SECRET_TOKEN`
+   - Пример:
+   ```
+   LANGCONNECT_API_URL=http://host.docker.internal:8833
+   LANGCONNECT_API_SECRET_TOKEN=123
+   ```
 ## Endpoints
 
 ### Collections
